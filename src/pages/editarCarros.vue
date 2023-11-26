@@ -73,9 +73,7 @@ export default defineComponent({
   data(){
     return{
       carro: [],
-      servidorNot:'192.168.0.103',
-      servidorBa:'192.168.1.94',
-      servidor:'localhost',
+      servidor:'18.229.142.48',
       optionsSituacao:['APROVADO', 'EVIDENCIAR','PRONTO','DESCONHECIDO'],
 
     }
@@ -86,7 +84,7 @@ export default defineComponent({
   methods:{
 
     filtro(){
-      const url = `http://${this.servidorBa}:3000/api/carros/update?id=${this.idCarroEdit}`;
+      const url = `http://${this.servidor}:3000/api/carros/update?id=${this.idCarroEdit}`;
       fetch(url, {
         method: "GET",
         headers: {
@@ -102,7 +100,7 @@ export default defineComponent({
     },
 
     atualizarCarro() {
-      const url = `http://${this.servidorBa}:3000/api/carros/${this.idCarroEdit}`;
+      const url = `http://${this.servidor}:3000/api/carros/${this.idCarroEdit}`;
       const data = {
         placa: this.carro.placa,
         modelo: this.carro.modelo,

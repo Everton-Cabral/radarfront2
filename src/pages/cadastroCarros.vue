@@ -80,9 +80,7 @@ export default defineComponent({
       km:'',
       dataentrada: '',
       obs:'',
-      servidorNot:'192.168.0.103',
-      servidorBa:'192.168.1.94',
-      servidor:'localhost'
+      servidor:'18.229.142.48'
 
     }
   },
@@ -100,7 +98,7 @@ export default defineComponent({
         obs: this.obs
       }
 
-      fetch(`http://${this.servidorBa}:3000/api/carros`, {
+      fetch(`http://${this.servidor}:3000/api/carros`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

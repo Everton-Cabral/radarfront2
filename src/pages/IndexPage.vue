@@ -261,9 +261,7 @@ export default defineComponent({
       persistent: false,
       ativardetalhe: false,
       idCarroDelete: '',
-      servidorNot:'192.168.0.103',
-      servidorBa:'192.168.1.94',
-      servidor:'localhost',
+      servidor:'18.229.142.48',
       carroDetalhe:[],
 
     }
@@ -286,7 +284,7 @@ export default defineComponent({
         situacao: this.situacaoFiltro,
       });
 
-      const url = `http://${this.servidorBa}:3000/api/carros/filtrado?${queryParams.toString()}`;
+      const url = `http://${this.servidor}:3000/api/carros/filtrado?${queryParams.toString()}`;
 
       fetch(url, {
         method: "GET",
@@ -302,7 +300,7 @@ export default defineComponent({
     },
 
     chamarCarros(){
-      fetch(`http://${this.servidorBa}:3000/api/carros`)
+      fetch(`http://${this.servidor}:3000/api/carros`)
       .then((response) => response.json())
       .then((data) => this.carros = data)
 
@@ -321,7 +319,7 @@ export default defineComponent({
     },
 
     deletarCarros(){
-      const url = `http://${this.servidorBa}:3000/api/carros/?id=${this.idCarroDelete}`;
+      const url = `http://${this.servidor}:3000/api/carros/?id=${this.idCarroDelete}`;
       console.log(this.idCarroDelete)
       fetch(url, {
         method: "DELETE",
