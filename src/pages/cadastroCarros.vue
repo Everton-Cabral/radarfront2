@@ -75,7 +75,7 @@ export default defineComponent({
       modelo:'',
       cliente:'',
       situacao:'DESCONHECIDO',
-      optionsSituacao:['APROVADO', 'EVIDENCIAR','PRONTO','DESCONHECIDO'],
+      optionsSituacao:['APROVADO', 'EVIDENCIAR','PRONTO','RESERVA','DESCONHECIDO'],
       orgao:'',
       km:'',
       dataentrada: '',

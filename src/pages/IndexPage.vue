@@ -147,105 +147,11 @@
 
   </q-page>
 </template>
-<style scoped>
 
-.container{
-  display: flex;
-  flex-direction: column;
-  margin-top: 20px;
-  align-items: center;
-}
-.tabela{
-  width: 98%;
-  margin-top: 0px;
-}
-
-
-.filtro{
-  display: flex;
-
-}
-
-.lupa{
-  font-size: 40px;
-  margin: 10px;
-}
-.lupa:hover{
-  cursor: pointer;
-}
-.sair{
-  font-size: 20px;
-  color: red;
-}
-.sair:hover{
-  cursor: pointer;
-}
-.editar{
-  color: blue;
-  font-size: 20px;
-}
-.editar:hover{
-  cursor: pointer;
-}
-.limparFiltro{
-  height: 35px;
-  background-color: #b71c1c;
-  color: white;
-  border-radius: 10px;
-  border: none;
-  margin-left: 50px;
-}
-.limparFiltro:hover{
-  cursor: pointer;
-}
-tr:hover{
-  background-color: #928c8c1c;
-}
-.carro-detalhe{
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-
-}
-.item-detalhe-carro{
-  margin: 10px;
-  display: flex;
-  justify-content: space-around;
-}
-.sessa-detalhe{
-  display: flex;
-  justify-content: center;
-}
-.modal-detalhe{
-  background: linear-gradient(45deg, #f5f5f5, #e0e0e0);
-    color: #333; /* Cor de texto padrão */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Sombra sutil para o texto */
-
-    /* Adição de borda com efeito de profundidade */
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
-.tabelaFixa {
-  height: 70vh; /* Ajuste conforme necessário */
-  width: 98%;
-  overflow-y: auto;
-}
-
-.tabelaFixa thead {
-  position: sticky;
-  top: 0;
-  background-color: #f5f5f5; /* Cor de fundo do cabeçalho fixo */
-  z-index: 1;
-}
-
-.tabelaFixa th {
-  text-align: center;
-}
-
-</style>
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent } from 'vue';
+import { mapState } from 'vuex';
+
 
 
 export default defineComponent({
@@ -253,7 +159,7 @@ export default defineComponent({
 
   data(){
     return{
-      carros: [],
+      
       placaFiltro:'',
       modeloFiltro:'',
       clienteFiltro:'',
@@ -267,8 +173,11 @@ export default defineComponent({
     }
   },
   computed:{
+    ...mapState([
+      'carros',
+    ])
 
-},
+  },
   methods:{
 
     formatarDataEntrada(data) {
@@ -277,40 +186,26 @@ export default defineComponent({
     },
 
     filtro() {
-      const queryParams = new URLSearchParams({
+      const params = new URLSearchParams({
         placa: this.placaFiltro,
         modelo: this.modeloFiltro,
         cliente: this.clienteFiltro,
         situacao: this.situacaoFiltro,
       });
 
-      const url = `http://${this.servidor}:3000/api/carros/filtrado?${queryParams.toString()}`;
-
-      fetch(url, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => response.json())
-      .then((data) => {
-        this.carros = data;
-      })
-      .catch((error) => console.error("Erro ao buscar carros:", error));
+      this.$store.dispatch('filterCarro', params)
     },
 
     chamarCarros(){
-      fetch(`http://${this.servidor}:3000/api/carros`)
-      .then((response) => response.json())
-      .then((data) => this.carros = data)
-
+      
+      this.$store.dispatch('getCarros')
       .then(
         this.placaFiltro='',
         this.modeloFiltro='',
         this.clienteFiltro='',
         this.situacaoFiltro=''
       )
-      .catch((error) => console.error("Erro ao buscar carros:", error));
+      
     },
 
     checarDelete(params){
@@ -363,3 +258,95 @@ export default defineComponent({
 
 })
 </script>
+<style scoped>
+
+.container{
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  align-items: center;
+}
+.tabela{
+  width: 98%;
+  margin-top: 0px;
+}
+.filtro{
+  display: flex;
+}
+.lupa{
+  font-size: 40px;
+  margin: 10px;
+}
+.lupa:hover{
+  cursor: pointer;
+}
+.sair{
+  font-size: 20px;
+  color: red;
+}
+.sair:hover{
+  cursor: pointer;
+}
+.editar{
+  color: blue;
+  font-size: 20px;
+}
+.editar:hover{
+  cursor: pointer;
+}
+.limparFiltro{
+  height: 35px;
+  background-color: #b71c1c;
+  color: white;
+  border-radius: 10px;
+  border: none;
+  margin-left: 50px;
+}
+.limparFiltro:hover{
+  cursor: pointer;
+}
+tr:hover{
+  background-color: #928c8c1c;
+}
+.carro-detalhe{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.item-detalhe-carro{
+  margin: 10px;
+  display: flex;
+  justify-content: space-around;
+}
+.sessa-detalhe{
+  display: flex;
+  justify-content: center;
+}
+.modal-detalhe{
+  background: linear-gradient(45deg, #f5f5f5, #e0e0e0);
+    color: #333; /* Cor de texto padrão */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Sombra sutil para o texto */
+
+    /* Adição de borda com efeito de profundidade */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.tabelaFixa {
+  height: 70vh; /* Ajuste conforme necessário */
+  width: 98%;
+  overflow-y: auto;
+}
+
+.tabelaFixa thead {
+  position: sticky;
+  top: 0;
+  background-color: #f5f5f5; /* Cor de fundo do cabeçalho fixo */
+  z-index: 1;
+}
+
+.tabelaFixa th {
+  text-align: center;
+}
+
+</style>

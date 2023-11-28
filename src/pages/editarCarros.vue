@@ -74,7 +74,7 @@ export default defineComponent({
     return{
       carro: [],
       servidor:'18.229.142.48',
-      optionsSituacao:['APROVADO', 'EVIDENCIAR','PRONTO','DESCONHECIDO'],
+      optionsSituacao:['APROVADO', 'EVIDENCIAR','PRONTO','RESERVA','EM SERVIÇO','DESCONHECIDO'],
 
     }
   },
