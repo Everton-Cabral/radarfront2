@@ -75,14 +75,12 @@ export default defineComponent({
       modelo:'',
       cliente:'',
       situacao:'DESCONHECIDO',
-      optionsSituacao:['APROVADO', 'EVIDENCIAR','PRONTO','DESCONHECIDO'],
+      optionsSituacao:['APROVADO', 'EVIDENCIAR','PRONTO','RESERVA','DESCONHECIDO'],
       orgao:'',
       km:'',
       dataentrada: '',
       obs:'',
-      servidorNot:'192.168.0.103',
-      servidorBa:'192.168.1.94',
-      servidor:'localhost'
+      servidor:'18.229.142.48'
 
     }
   },
@@ -100,7 +98,7 @@ export default defineComponent({
         obs: this.obs
       }
 
-      fetch(`http://${this.servidorBa}:3000/api/carros`, {
+      fetch(`http://${this.servidor}:3000/api/carros`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
