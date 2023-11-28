@@ -115,7 +115,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="carro in carros" :key="carro._id">
+          <tr v-for="carro in carroFiltrado" :key="carro._id">
             <td class="text-center" @click="detalheCarro(carro)">
               <q-icon name="add" class="editar" />
             </td>
@@ -200,6 +200,11 @@ export default defineComponent({
   },
   computed: {
     ...mapState(["carros"]),
+    carroFiltrado() {
+      return this.carros.filter((carro) =>
+        carro.placa.includes(this.placaFiltro)
+      );
+    },
   },
   methods: {
     formatarDataEntrada(data) {
