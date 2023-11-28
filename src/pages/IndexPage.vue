@@ -6,12 +6,22 @@
       <q-input borderless v-model="clienteFiltro" label="CLIENTE" />
       <q-input borderless v-model="situacaoFiltro" label="SITUAÇÃO" />
       <q-icon name="search" class="lupa" @click="filtro()" />
-      <q-icon name="refresh" class="lupa" color="green" @click="chamarCarros()"/>
+      <q-icon
+        name="refresh"
+        class="lupa"
+        color="green"
+        @click="chamarCarros()"
+      />
     </div>
 
     <!-- checagem de delete -->
     <div class="q-pa-md q-gutter-sm">
-      <q-dialog v-model="persistent" persistent transition-show="scale" transition-hide="scale">
+      <q-dialog
+        v-model="persistent"
+        persistent
+        transition-show="scale"
+        transition-hide="scale"
+      >
         <q-card class="bg-teal text-white" style="width: 300px">
           <q-card-section>
             <div class="text-h6">Atenção</div>
@@ -29,33 +39,57 @@
       </q-dialog>
     </div>
 
-  <!--   detalhes do carro -->
-  <div class="q-pa-md q-gutter-sm carro-detalhe">
-      <q-dialog v-model="ativardetalhe" persistent transition-show="scale" transition-hide="scale">
-        <q-card class=" modal-detalhe" style="width: 60%; height:70%; background-color:#ececec;">
+    <!--   detalhes do carro -->
+    <div class="q-pa-md q-gutter-sm carro-detalhe">
+      <q-dialog
+        v-model="ativardetalhe"
+        persistent
+        transition-show="scale"
+        transition-hide="scale"
+      >
+        <q-card
+          class="modal-detalhe"
+          style="width: 60%; height: 70%; background-color: #ececec"
+        >
           <q-card-section>
             <div class="text-h7">
               <div class="sessa-detalhe">
-                <strong class="item-detalhe-carro">PLACA: {{ carroDetalhe.placa }}</strong>
-                <strong class="item-detalhe-carro">MODELO: {{ carroDetalhe.modelo }}</strong>
-                <strong class="item-detalhe-carro">KM: {{ carroDetalhe.km }}</strong>
+                <strong class="item-detalhe-carro"
+                  >PLACA: {{ carroDetalhe.placa }}</strong
+                >
+                <strong class="item-detalhe-carro"
+                  >MODELO: {{ carroDetalhe.modelo }}</strong
+                >
+                <strong class="item-detalhe-carro"
+                  >KM: {{ carroDetalhe.km }}</strong
+                >
               </div>
 
               <div class="sessa-detalhe">
-                <strong class="item-detalhe-carro">CLIENTE: {{ carroDetalhe.cliente }}</strong>
-                <strong class="item-detalhe-carro">SITUAÇÃO: {{ carroDetalhe.situacao }}</strong>
+                <strong class="item-detalhe-carro"
+                  >CLIENTE: {{ carroDetalhe.cliente }}</strong
+                >
+                <strong class="item-detalhe-carro"
+                  >SITUAÇÃO: {{ carroDetalhe.situacao }}</strong
+                >
               </div>
 
               <div class="sessa-detalhe">
-                <strong class="item-detalhe-carro">ORGÃO: {{ carroDetalhe.orgao }}</strong>
-                <strong class="item-detalhe-carro">ENTRADA: {{ formatarDataEntrada(carroDetalhe.dataentrada) }}</strong>
+                <strong class="item-detalhe-carro"
+                  >ORGÃO: {{ carroDetalhe.orgao }}</strong
+                >
+                <strong class="item-detalhe-carro"
+                  >ENTRADA:
+                  {{ formatarDataEntrada(carroDetalhe.dataentrada) }}</strong
+                >
               </div>
-
             </div>
           </q-card-section>
 
           <q-card-section>
-            <strong class="item-detalhe-carro" style="font-size: 12px;">OBSERVAÇÕES: {{ carroDetalhe.obs }}</strong>
+            <strong class="item-detalhe-carro" style="font-size: 12px"
+              >OBSERVAÇÕES: {{ carroDetalhe.obs }}</strong
+            >
           </q-card-section>
 
           <q-card-actions align="center" class="bg-white text-teal">
@@ -65,48 +99,46 @@
       </q-dialog>
     </div>
 
+    <div class="tabelaFixa">
+      <table class="tabela">
+        <thead>
+          <tr>
+            <th class="text-center">INFO</th>
+            <th class="text-center">EDITAR</th>
+            <th class="text-center">PLACA</th>
+            <th class="text-center">MODELO</th>
+            <th class="text-center">CLIENTE</th>
+            <th class="text-center">SITUAÇÃO</th>
+            <th class="text-center">ORGÃO</th>
+            <th class="text-center">DATA DE ENTRADA</th>
+            <th class="text-center">SAIR</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="carro in carros" :key="carro._id">
+            <td class="text-center" @click="detalheCarro(carro)">
+              <q-icon name="add" class="editar" />
+            </td>
+            <td class="text-center" @click="editarCarros(carro._id)">
+              <q-icon name="edit" class="editar" />
+            </td>
+            <td class="text-center">{{ carro.placa }}</td>
+            <td class="text-center">{{ carro.modelo }}</td>
+            <td class="text-center">{{ carro.cliente }}</td>
+            <td class="text-center">{{ carro.situacao }}</td>
+            <td class="text-center">{{ carro.orgao }}</td>
+            <td class="text-center">
+              {{ formatarDataEntrada(carro.dataentrada) }}
+            </td>
+            <td class="text-center" @click="checarDelete(carro._id)">
+              <q-icon name="logout" class="sair" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-     <div class="tabelaFixa">
-    <table class="tabela">
-      <thead>
-        <tr>
-          <th class="text-center">INFO</th>
-          <th class="text-center">EDITAR</th>
-          <th class="text-center">PLACA</th>
-          <th class="text-center">MODELO</th>
-          <th class="text-center">CLIENTE</th>
-          <th class="text-center">SITUAÇÃO</th>
-          <th class="text-center">ORGÃO</th>
-          <th class="text-center">DATA DE ENTRADA</th>
-          <th class="text-center">SAIR</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="carro in carros" :key="carro._id">
-          <td class="text-center" @click="detalheCarro(carro)">
-            <q-icon name="add" class="editar" />
-          </td>
-          <td class="text-center" @click="editarCarros(carro._id)">
-            <q-icon name="edit" class="editar" />
-          </td>
-          <td class="text-center">{{carro.placa}}</td>
-          <td class="text-center">{{carro.modelo}}</td>
-          <td class="text-center">{{carro.cliente}}</td>
-          <td class="text-center">{{carro.situacao }}</td>
-          <td class="text-center">{{carro.orgao}}</td>
-          <td class="text-center">{{formatarDataEntrada(carro.dataentrada)}}</td>
-          <td class="text-center" @click="checarDelete(carro._id)">
-            <q-icon name="logout" class="sair" />
-          </td>
-        </tr>
-      </tbody>
-    </table>
-</div>
-
-
-
-
-  <!-- <q-markup-table :separator="separator" flat bordered class="tabela">
+    <!-- <q-markup-table :separator="separator" flat bordered class="tabela">
       <thead>
         <tr>
           <th class="text-center">INFO</th>
@@ -143,46 +175,41 @@
           </tr>
         </tbody>
     </q-markup-table> -->
-
-
   </q-page>
 </template>
 
 <script>
-import { defineComponent } from 'vue';
-import { mapState } from 'vuex';
-
-
+import { defineComponent } from "vue";
+import { mapState } from "vuex";
 
 export default defineComponent({
-  name: 'IndexPage',
+  name: "IndexPage",
 
-  data(){
-    return{
-      
-      placaFiltro:'',
-      modeloFiltro:'',
-      clienteFiltro:'',
-      situacaoFiltro:'',
+  data() {
+    return {
+      placaFiltro: "",
+      modeloFiltro: "",
+      clienteFiltro: "",
+      situacaoFiltro: "",
       persistent: false,
       ativardetalhe: false,
-      idCarroDelete: '',
-      servidor:'18.229.142.48',
-      carroDetalhe:[],
-
-    }
+      idCarroDelete: "",
+      servidor: "18.229.142.48",
+      carroDetalhe: [],
+    };
   },
-  computed:{
-    ...mapState([
-      'carros',
-    ])
-
+  computed: {
+    ...mapState(["carros"]),
   },
-  methods:{
-
+  methods: {
     formatarDataEntrada(data) {
-      const options = { year: 'numeric', month: '2-digit', day: '2-digit', timeZone: 'UTC' };
-      return new Date(data).toLocaleDateString('pt-BR', options);
+      const options = {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        timeZone: "UTC",
+      };
+      return new Date(data).toLocaleDateString("pt-BR", options);
     },
 
     filtro() {
@@ -193,54 +220,42 @@ export default defineComponent({
         situacao: this.situacaoFiltro,
       });
 
-      this.$store.dispatch('filterCarro', params)
+      this.$store.dispatch("filterCarro", params);
     },
 
-    chamarCarros(){
-      
-      this.$store.dispatch('getCarros')
-      .then(
-        this.placaFiltro='',
-        this.modeloFiltro='',
-        this.clienteFiltro='',
-        this.situacaoFiltro=''
-      )
-      
+    chamarCarros() {
+      this.$store
+        .dispatch("getCarros")
+        .then(
+          (this.placaFiltro = ""),
+          (this.modeloFiltro = ""),
+          (this.clienteFiltro = ""),
+          (this.situacaoFiltro = "")
+        );
     },
 
-    checarDelete(params){
-      this.persistent = true
-      this.idCarroDelete = params
+    checarDelete(params) {
+      this.persistent = true;
+      this.idCarroDelete = params;
     },
 
-    deletarCarros(){
-      const url = `http://${this.servidor}:3000/api/carros/?id=${this.idCarroDelete}`;
-      console.log(this.idCarroDelete)
-      fetch(url, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => response.json())
-      .then(this.$router.go())
-      .catch((error) => console.error("Erro ao buscar carros:", error));
+    deletarCarros() {
+      this.$store.dispatch("deleteCarro", this.idCarroDelete);
     },
-    editarCarros(params){
-      this.$store.commit('atualizarIdCarroEdit', params)
-      this.$router.push('/editar');
+    editarCarros(params) {
+      this.$store.commit("atualizarIdCarroEdit", params);
+      this.$router.push("/editar");
     },
-    detalheCarro(params){
-    this.ativardetalhe = true,
-    this.carroDetalhe = params
-  },
+    detalheCarro(params) {
+      (this.ativardetalhe = true), (this.carroDetalhe = params);
+    },
   },
 
   watch: {
     placaFiltro(newText) {
       this.placaFiltro = newText.toUpperCase();
     },
-    modeloFiltro(newText){
+    modeloFiltro(newText) {
       this.modeloFiltro = newText.toUpperCase();
     },
     clienteFiltro(newText) {
@@ -249,52 +264,48 @@ export default defineComponent({
     situacaoFiltro(newText) {
       this.situacaoFiltro = newText.toUpperCase();
     },
-
   },
-  mounted(){
+  mounted() {
     this.chamarCarros();
   },
-
-
-})
+});
 </script>
 <style scoped>
-
-.container{
+.container {
   display: flex;
   flex-direction: column;
   margin-top: 20px;
   align-items: center;
 }
-.tabela{
+.tabela {
   width: 98%;
   margin-top: 0px;
 }
-.filtro{
+.filtro {
   display: flex;
 }
-.lupa{
+.lupa {
   font-size: 40px;
   margin: 10px;
 }
-.lupa:hover{
+.lupa:hover {
   cursor: pointer;
 }
-.sair{
+.sair {
   font-size: 20px;
   color: red;
 }
-.sair:hover{
+.sair:hover {
   cursor: pointer;
 }
-.editar{
+.editar {
   color: blue;
   font-size: 20px;
 }
-.editar:hover{
+.editar:hover {
   cursor: pointer;
 }
-.limparFiltro{
+.limparFiltro {
   height: 35px;
   background-color: #b71c1c;
   color: white;
@@ -302,35 +313,35 @@ export default defineComponent({
   border: none;
   margin-left: 50px;
 }
-.limparFiltro:hover{
+.limparFiltro:hover {
   cursor: pointer;
 }
-tr:hover{
+tr:hover {
   background-color: #928c8c1c;
 }
-.carro-detalhe{
+.carro-detalhe {
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
-.item-detalhe-carro{
+.item-detalhe-carro {
   margin: 10px;
   display: flex;
   justify-content: space-around;
 }
-.sessa-detalhe{
+.sessa-detalhe {
   display: flex;
   justify-content: center;
 }
-.modal-detalhe{
+.modal-detalhe {
   background: linear-gradient(45deg, #f5f5f5, #e0e0e0);
-    color: #333; /* Cor de texto padrão */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Sombra sutil para o texto */
+  color: #333; /* Cor de texto padrão */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Sombra sutil para o texto */
 
-    /* Adição de borda com efeito de profundidade */
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  /* Adição de borda com efeito de profundidade */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 .tabelaFixa {
   height: 70vh; /* Ajuste conforme necessário */
@@ -348,5 +359,4 @@ tr:hover{
 .tabelaFixa th {
   text-align: center;
 }
-
 </style>
