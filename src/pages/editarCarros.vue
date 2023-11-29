@@ -60,7 +60,7 @@ export default defineComponent({
       servidor: "18.229.142.48",
       optionsSituacao: [
         "APROVADO",
-        "EVIDENCIAR",
+        "AGUARDANDO",
         "PRONTO",
         "RESERVA",
         "EM SERVIÇO",

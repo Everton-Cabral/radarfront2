@@ -84,7 +84,7 @@ export default defineComponent({
       situacao: "DESCONHECIDO",
       optionsSituacao: [
         "APROVADO",
-        "EVIDENCIAR",
+        "AGUARDANDO",
         "PRONTO",
         "RESERVA",
         "DESCONHECIDO",

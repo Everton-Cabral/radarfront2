@@ -11,26 +11,16 @@
           @click="toggleLeftDrawer"
         />
 
-        <img src="../assets/logo.png" alt="Logo Radar">
+        <img src="../assets/logo.png" alt="Logo Radar" />
         <q-toolbar-title>
           Controle de Entrada e Saída de Veículos
         </q-toolbar-title>
-
-
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-    >
+    <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
       <q-list>
-        <q-item-label
-          header
-        >
-           Menu de Opções
-        </q-item-label>
+        <q-item-label header> Menu de Opções </q-item-label>
 
         <EssentialLink
           v-for="link in essentialLinks"
@@ -47,49 +37,52 @@
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
-import EssentialLink from 'components/EssentialLink.vue'
+import { defineComponent, ref } from "vue";
+import EssentialLink from "components/EssentialLink.vue";
 
 const linksList = [
-{
-    title: 'Home',
-    caption: 'Voltar para tela inicial',
-    icon: 'home',
-    route:'/'
-
+  {
+    title: "Home",
+    caption: "Voltar para tela inicial",
+    icon: "home",
+    route: "/",
   },
   {
-    title: 'Entrada de Veículo',
-    caption: 'Cadastrar Veículos',
-    icon: 'login',
-    route:'cadastro'
-
+    title: "Entrada de Veículo",
+    caption: "Cadastrar Veículos",
+    icon: "login",
+    route: "cadastro",
   },
   {
-    title: 'Editar',
-    caption: 'Editar informações',
-    icon: 'edit',
+    title: "Info",
+    caption: "Consultar Informações",
+    icon: "info",
+    route: "painel",
   },
-
-]
+  {
+    title: "Editar",
+    caption: "Editar informações",
+    icon: "edit",
+  },
+];
 
 export default defineComponent({
-  name: 'MainLayout',
+  name: "MainLayout",
 
   components: {
-    EssentialLink
+    EssentialLink,
   },
 
-  setup () {
-    const leftDrawerOpen = ref(false)
+  setup() {
+    const leftDrawerOpen = ref(false);
 
     return {
       essentialLinks: linksList,
       leftDrawerOpen,
-      toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value
-      }
-    }
-  }
-})
+      toggleLeftDrawer() {
+        leftDrawerOpen.value = !leftDrawerOpen.value;
+      },
+    };
+  },
+});
 </script>
