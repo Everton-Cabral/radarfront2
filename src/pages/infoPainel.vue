@@ -44,8 +44,14 @@ export default defineComponent({
 </script>
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Dosis:wght@200&display=swap");
+.corpo {
+  display: flex;
+  flex-direction: row;
+}
 .container {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   font-family: "Dosis", sans-serif;
   font-size: 40px;
 }
@@ -60,7 +66,7 @@ export default defineComponent({
   color: white;
   display: flex;
   flex-direction: column;
-  width: 30%;
+  width: 220px;
 }
 em {
   font-size: 45px;
