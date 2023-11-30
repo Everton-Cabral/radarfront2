@@ -40,6 +40,14 @@ export default defineComponent({
         .length;
     },
   },
+  methods: {
+    chamarCarros() {
+      this.$store.dispatch("getCarros");
+    },
+  },
+  mounted() {
+    this.chamarCarros();
+  },
 });
 </script>
 <style scoped>
