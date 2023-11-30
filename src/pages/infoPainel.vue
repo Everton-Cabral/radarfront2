@@ -1,16 +1,20 @@
 <template>
   <div class="container">
     <div class="cart" style="background-color: gray">
-      Total de Carros -{{ carros.length }}
+      Carros
+      <em>{{ carros.length }}</em>
     </div>
     <div class="cart" style="background-color: rgb(70, 199, 70)">
-      Carros Prontos -{{ carrosProntos }}
+      Prontos
+      <em>{{ carrosProntos }}</em>
     </div>
     <div class="cart" style="background-color: rgb(214, 51, 51)">
-      Aguardando Aprovação -{{ aguarApro }}
+      Aguardando Aprovação
+      <em>{{ aguarApro }}</em>
     </div>
     <div class="cart" style="background-color: orange">
-      Carros em Serviço -{{ emServico }}
+      Em Serviço
+      <em>{{ emServico }}</em>
     </div>
   </div>
 </template>
@@ -54,5 +58,12 @@ export default defineComponent({
   padding: 2px;
   box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.3);
   color: white;
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+em {
+  font-size: 45px;
+  font-weight: bold;
 }
 </style>
