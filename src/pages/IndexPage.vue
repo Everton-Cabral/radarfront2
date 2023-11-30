@@ -228,7 +228,7 @@ export default defineComponent({
     },
   },
   methods: {
-    /*  formatarDataEntrada(data) {
+    formatarDataEntrada(data) {
       const options = {
         year: "numeric",
         month: "2-digit",
@@ -237,7 +237,7 @@ export default defineComponent({
       };
       return new Date(data).toLocaleDateString("pt-BR", options);
     },
- */
+
     filtro() {
       const params = new URLSearchParams({
         placa: this.placaFiltro,
