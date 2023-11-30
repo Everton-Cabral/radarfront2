@@ -110,7 +110,7 @@
             <th class="text-center">CLIENTE</th>
             <th class="text-center">SITUAÇÃO</th>
             <th class="text-center">ORGÃO</th>
-            <th class="text-center">DATA DE ENTRADA</th>
+
             <th class="text-center">SAIR</th>
           </tr>
         </thead>
@@ -125,11 +125,32 @@
             <td class="text-center">{{ carro.placa }}</td>
             <td class="text-center">{{ carro.modelo }}</td>
             <td class="text-center">{{ carro.cliente }}</td>
-            <td class="text-center">{{ carro.situacao }}</td>
-            <td class="text-center">{{ carro.orgao }}</td>
             <td class="text-center">
-              {{ formatarDataEntrada(carro.dataentrada) }}
+              {{ carro.situacao }}
+              <q-icon
+                v-if="carro.situacao === 'EM SERVIÇO'"
+                name="construction"
+                class="emServicoIcon"
+              ></q-icon>
+              <q-icon
+                v-if="carro.situacao === 'AGUARDANDO'"
+                name="cancel"
+                class="aguardandoIcon"
+              ></q-icon>
+              <q-icon
+                v-if="carro.situacao === 'DESCONHECIDO'"
+                name="help"
+                class="desconhecidoIcon"
+              ></q-icon>
+              <q-icon
+                v-if="carro.situacao === 'PRONTO'"
+                name="check"
+                class="prontoIcon"
+              >
+              </q-icon>
             </td>
+            <td class="text-center">{{ carro.orgao }}</td>
+
             <td class="text-center" @click="checarDelete(carro._id)">
               <q-icon name="logout" class="sair" />
             </td>
@@ -207,7 +228,7 @@ export default defineComponent({
     },
   },
   methods: {
-    formatarDataEntrada(data) {
+    /*  formatarDataEntrada(data) {
       const options = {
         year: "numeric",
         month: "2-digit",
@@ -216,7 +237,7 @@ export default defineComponent({
       };
       return new Date(data).toLocaleDateString("pt-BR", options);
     },
-
+ */
     filtro() {
       const params = new URLSearchParams({
         placa: this.placaFiltro,
@@ -363,5 +384,22 @@ tr:hover {
 
 .tabelaFixa th {
   text-align: center;
+}
+
+.prontoIcon {
+  color: green;
+  font-size: 25px;
+}
+.aguardandoIcon {
+  color: red;
+  font-size: 20px;
+}
+.desconhecidoIcon {
+  color: grey;
+  font-size: 20px;
+}
+.emServicoIcon {
+  color: orange;
+  font-size: 25px;
 }
 </style>
