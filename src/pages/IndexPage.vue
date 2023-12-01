@@ -92,6 +92,13 @@
             >
           </q-card-section>
 
+          <div>
+            <input type="file" ref="fileInput" @change="handleFileChange" />
+            <button @click="uploadFile(carroDetalhe._id)">
+              Enviar Arquivo
+            </button>
+          </div>
+
           <q-card-actions align="center" class="bg-white text-teal">
             <q-btn flat label="FECHAR" v-close-popup />
           </q-card-actions>
@@ -217,6 +224,7 @@ export default defineComponent({
       idCarroDelete: "",
       servidor: "18.229.142.48",
       carroDetalhe: [],
+      selectedFile: null,
     };
   },
   computed: {
@@ -228,6 +236,43 @@ export default defineComponent({
     },
   },
   methods: {
+    handleFileChange() {
+      this.selectedFile = this.$refs.fileInput.files[0];
+    },
+
+    async uploadFile(params) {
+      try {
+        const formData = new FormData();
+        formData.append("file", this.selectedFile);
+
+        console.log("Arquivo anexado ao FormData:", formData.get("file"));
+
+        const response = await fetch(
+          `http://localhost:3000/api/carros/upload/${params}`,
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+
+        if (!response.ok) {
+          // Se o status não estiver no intervalo 200-299, trata como erro
+          const errorMessage = await response.text();
+          console.error(
+            "Erro durante o upload. Status:",
+            response.status,
+            "Mensagem:",
+            errorMessage
+          );
+        } else {
+          // Se a resposta estiver OK, você ainda pode tentar fazer o parse como JSON
+          const data = await response.json();
+          console.log(data);
+        }
+      } catch (error) {
+        console.error("Erro durante a requisição:", error);
+      }
+    },
     formatarDataEntrada(data) {
       const options = {
         year: "numeric",
