@@ -83,7 +83,7 @@ export default defineComponent({
       cliente: "",
       situacao: "DESCONHECIDO",
       optionsSituacao: [
-        "APROVADO",
+        "EM SERVIÇO",
         "AGUARDANDO",
         "PRONTO",
         "RESERVA",
