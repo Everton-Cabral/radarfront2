@@ -30,7 +30,7 @@
         type="textarea"
         v-model="obs"
         class="input"
-        label="Observações"
+        label="Demanda e Observações"
       />
     </div>
 
@@ -93,7 +93,7 @@ export default defineComponent({
       km: "",
       dataentrada: "",
       obs: "",
-      servidor: "18.229.142.48",
+      servidor: "localhost",
     };
   },
   methods: {

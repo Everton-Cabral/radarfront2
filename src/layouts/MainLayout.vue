@@ -60,9 +60,16 @@ const linksList = [
     route: "painel",
   },
   {
-    title: "Editar",
-    caption: "Editar informações",
-    icon: "edit",
+    title: "Orçamento",
+    caption: "Orçamentos em Aberto",
+    icon: "attach_money",
+    route: "orcamento",
+  },
+  {
+    title: "Histórico",
+    caption: "Histórico de Carros",
+    icon: "sync_alt",
+    route: "historico",
   },
 ];
 

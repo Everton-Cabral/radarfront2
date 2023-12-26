@@ -7,6 +7,20 @@ const routes = [
       { path: "cadastro", component: () => import("pages/cadastroCarros.vue") },
       { path: "editar", component: () => import("pages/editarCarros.vue") },
       { path: "painel", component: () => import("pages/infoPainel.vue") },
+      { path: "detalhe", component: () => import("pages/detalheCarro.vue") },
+      {
+        path: "historico",
+        component: () => import("pages/historicoCarros.vue"),
+      },
+      {
+        path: "ficha",
+        component: () => import("pages/detalheCarroHistorico.vue"),
+      },
+      { path: "orcamento", component: () => import("pages/appOrcamento.vue") },
+      {
+        path: "fichaorcamento",
+        component: () => import("pages/fichaOrcamento.vue"),
+      },
     ],
   },
 

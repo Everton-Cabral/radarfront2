@@ -28,79 +28,12 @@
           </q-card-section>
 
           <q-card-section class="q-pt-none">
-            Você tem certeza que deseja excluir o carro?
+            Você tem certeza que o carro está saindo da oficina?
           </q-card-section>
 
           <q-card-actions align="center" class="bg-white text-teal">
             <q-btn flat label="NÃO" v-close-popup />
-            <q-btn flat label="SIM" @click="deletarCarros()" v-close-popup />
-          </q-card-actions>
-        </q-card>
-      </q-dialog>
-    </div>
-
-    <!--   detalhes do carro -->
-    <div class="q-pa-md q-gutter-sm carro-detalhe">
-      <q-dialog
-        v-model="ativardetalhe"
-        persistent
-        transition-show="scale"
-        transition-hide="scale"
-      >
-        <q-card
-          class="modal-detalhe"
-          style="width: 60%; height: 70%; background-color: #ececec"
-        >
-          <q-card-section>
-            <div class="text-h7">
-              <div class="sessa-detalhe">
-                <strong class="item-detalhe-carro"
-                  >PLACA: {{ carroDetalhe.placa }}</strong
-                >
-                <strong class="item-detalhe-carro"
-                  >MODELO: {{ carroDetalhe.modelo }}</strong
-                >
-                <strong class="item-detalhe-carro"
-                  >KM: {{ carroDetalhe.km }}</strong
-                >
-              </div>
-
-              <div class="sessa-detalhe">
-                <strong class="item-detalhe-carro"
-                  >CLIENTE: {{ carroDetalhe.cliente }}</strong
-                >
-                <strong class="item-detalhe-carro"
-                  >SITUAÇÃO: {{ carroDetalhe.situacao }}</strong
-                >
-              </div>
-
-              <div class="sessa-detalhe">
-                <strong class="item-detalhe-carro"
-                  >ORGÃO: {{ carroDetalhe.orgao }}</strong
-                >
-                <strong class="item-detalhe-carro"
-                  >ENTRADA:
-                  {{ formatarDataEntrada(carroDetalhe.dataentrada) }}</strong
-                >
-              </div>
-            </div>
-          </q-card-section>
-
-          <q-card-section>
-            <strong class="item-detalhe-carro" style="font-size: 12px"
-              >OBSERVAÇÕES: {{ carroDetalhe.obs }}</strong
-            >
-          </q-card-section>
-
-          <div>
-            <input type="file" ref="fileInput" @change="handleFileChange" />
-            <button @click="uploadFile(carroDetalhe._id)">
-              Enviar Arquivo
-            </button>
-          </div>
-
-          <q-card-actions align="center" class="bg-white text-teal">
-            <q-btn flat label="FECHAR" v-close-popup />
+            <q-btn flat label="SIM" @click="exitCarro()" v-close-popup />
           </q-card-actions>
         </q-card>
       </q-dialog>
@@ -123,7 +56,7 @@
         </thead>
         <tbody>
           <tr v-for="carro in carroFiltrado" :key="carro._id">
-            <td class="text-center" @click="detalheCarro(carro)">
+            <td class="text-center" @click="detalheCarro(carro._id)">
               <q-icon name="add" class="editar" />
             </td>
             <td class="text-center" @click="editarCarros(carro._id)">
@@ -166,43 +99,78 @@
       </table>
     </div>
 
-    <!-- <q-markup-table :separator="separator" flat bordered class="tabela">
-      <thead>
-        <tr>
-          <th class="text-center">INFO</th>
-          <th class="text-center">EDITAR</th>
-          <th class="text-center">PLACA</th>
-          <th class="text-center">MODELO</th>
-          <th class="text-center">CLIENTE</th>
-          <th class="text-center">SITUAÇÃO</th>
-          <th class="text-center">ORGÃO</th>
-          <th class="text-center">DATA DE ENTRADA</th>
-          <th class="text-center">SAIR</th>
-        </tr>
-      </thead>
-        <tbody>
-          <tr v-for="carro in carros" :key="carro._id">
-            <td class="text-center" @click="detalheCarro(carro)">
-              <q-icon name="add" class="editar" />
-            </td>
-            <td class="text-center" @click="editarCarros(carro._id)">
-              <q-icon name="edit" class="editar" />
-            </td>
-            <td class="text-center">{{carro.placa}}</td>
-            <td class="text-center">{{carro.modelo}}</td>
+    <q-dialog
+      v-model="ativardetalhe"
+      persistent
+      transition-show="scale"
+      transition-hide="scale"
+    >
+      <q-card class="card">
+        <q-card-section>
+          <div class="text-h7">
+            <div class="sessa-detalhe">
+              <strong class="item-detalhe-carro"
+                >PLACA: {{ carroDetalhe.placa }}</strong
+              >
+              <strong class="item-detalhe-carro"
+                >MODELO: {{ carroDetalhe.modelo }}</strong
+              >
+              <strong class="item-detalhe-carro"
+                >KM: {{ carroDetalhe.km }}</strong
+              >
+            </div>
 
-            <td class="text-center">{{carro.cliente}}</td>
-            <td class="text-center">{{carro.situacao }}</td>
-            <td class="text-center">{{carro.orgao}}</td>
-            <td class="text-center">{{formatarDataEntrada(carro.dataentrada)}}</td>
-            <td class="text-center"  @click="checarDelete(carro._id)">
-              <q-icon name="logout" class="sair" />
-            </td>
+            <div class="sessa-detalhe">
+              <strong class="item-detalhe-carro"
+                >CLIENTE: {{ carroDetalhe.cliente }}</strong
+              >
+              <strong class="item-detalhe-carro"
+                >SITUAÇÃO: {{ carroDetalhe.situacao }}</strong
+              >
+            </div>
 
+            <div class="sessa-detalhe">
+              <strong class="item-detalhe-carro"
+                >ORGÃO: {{ carroDetalhe.orgao }}</strong
+              >
+              <strong class="item-detalhe-carro"
+                >ENTRADA:
+                {{ formatarDataEntrada(carroDetalhe.dataentrada) }}</strong
+              >
+            </div>
+          </div>
+        </q-card-section>
 
-          </tr>
-        </tbody>
-    </q-markup-table> -->
+        <q-card-section>
+          <strong class="item-detalhe-carro" style="font-size: 12px"
+            >OBSERVAÇÕES: {{ carroDetalhe.obs }}</strong
+          >
+        </q-card-section>
+
+        <div>
+          <input type="file" ref="fileInput" @change="handleFileChange" />
+          <button @click="uploadFile(carroDetalhe._id)">Enviar Arquivo</button>
+        </div>
+
+        <div class="q-ma-md">
+          <q-scroll-area style="height: 200px; max-width: 300px">
+            <div
+              class="containerImagens"
+              v-for="(imagem, i) in carroDetalhe.imagens"
+              :key="i"
+            >
+              <a :href="imagem">
+                <img class="imagensCarro" :src="imagem" alt="" />
+              </a>
+            </div>
+          </q-scroll-area>
+        </div>
+
+        <q-card-actions align="center" class="bg-white text-teal">
+          <q-btn flat label="FECHAR" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
@@ -254,20 +222,13 @@ export default defineComponent({
             body: formData,
           }
         );
-
-        if (!response.ok) {
-          // Se o status não estiver no intervalo 200-299, trata como erro
-          const errorMessage = await response.text();
-          console.error(
-            "Erro durante o upload. Status:",
-            response.status,
-            "Mensagem:",
-            errorMessage
-          );
-        } else {
-          // Se a resposta estiver OK, você ainda pode tentar fazer o parse como JSON
+        if (response.ok) {
           const data = await response.json();
-          console.log(data);
+          console.log("Upload bem-sucedido=>:", data);
+          this.carroDetalhe.imagens = data.imagens;
+          await this.chamarCarros();
+        } else {
+          console.error("Falha no upload. Status:", response.status);
         }
       } catch (error) {
         console.error("Erro durante a requisição:", error);
@@ -310,15 +271,16 @@ export default defineComponent({
       this.idCarroDelete = params;
     },
 
-    deletarCarros() {
-      this.$store.dispatch("deleteCarro", this.idCarroDelete);
+    exitCarro() {
+      this.$store.dispatch("exitCarro", this.idCarroDelete);
     },
     editarCarros(params) {
       this.$store.commit("atualizarIdCarroEdit", params);
       this.$router.push("/editar");
     },
     detalheCarro(params) {
-      (this.ativardetalhe = true), (this.carroDetalhe = params);
+      this.$store.commit("atualizarIdCarroDetalhe", params);
+      this.$router.push("/detalhe");
     },
   },
 
@@ -390,11 +352,7 @@ export default defineComponent({
 tr:hover {
   background-color: #928c8c1c;
 }
-.carro-detalhe {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
+
 .item-detalhe-carro {
   margin: 10px;
   display: flex;
@@ -408,7 +366,6 @@ tr:hover {
   background: linear-gradient(45deg, #f5f5f5, #e0e0e0);
   color: #333; /* Cor de texto padrão */
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Sombra sutil para o texto */
-
   /* Adição de borda com efeito de profundidade */
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -446,5 +403,18 @@ tr:hover {
 .emServicoIcon {
   color: orange;
   font-size: 25px;
+}
+.containerImagens {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.imagensCarro {
+  height: 200px;
+  width: 300px;
+}
+.card {
+  width: 50% !important;
+  height: 800px;
 }
 </style>

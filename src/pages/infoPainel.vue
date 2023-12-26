@@ -9,7 +9,7 @@
       <em>{{ carrosProntos }}</em>
     </div>
     <div class="cart" style="background-color: rgb(214, 51, 51)">
-      Aguardando Aprovação
+      Aguardando
       <em>{{ aguarApro }}</em>
     </div>
     <div class="cart" style="background-color: orange">
@@ -75,9 +75,10 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   width: 220px;
+  height: 200px;
 }
 em {
-  font-size: 45px;
+  font-size: 75px;
   font-weight: bold;
 }
 </style>

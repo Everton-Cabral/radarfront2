@@ -69,11 +69,11 @@ export default defineComponent({
     };
   },
   computed: {
-    ...mapState(["idCarroEdit"]),
+    ...mapState(["idCarroEdit", "enderecoIp"]),
   },
   methods: {
     filtro() {
-      const url = `http://${this.servidor}:3000/api/carros/update?id=${this.idCarroEdit}`;
+      const url = `http://${this.enderecoIp}:3000/api/carros/update?id=${this.idCarroEdit}`;
       fetch(url, {
         method: "GET",
         headers: {
@@ -101,6 +101,7 @@ export default defineComponent({
       };
 
       this.$store.dispatch("updateCarro", carro);
+      this.$router.push("/");
     },
   },
 
