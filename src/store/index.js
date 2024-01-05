@@ -5,7 +5,7 @@ import { createStore } from "vuex";
 export default store(function () {
   return createStore({
     state: {
-      enderecoIp: "localhost",
+      enderecoIp: "18.229.142.48",
       carros: [],
       idCarroEdit: "",
       idCarroDetalhe: "",

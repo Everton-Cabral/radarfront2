@@ -228,7 +228,7 @@ export default {
         console.log("Arquivo anexado ao FormData:", formData.get("file"));
 
         const response = await fetch(
-          `http://localhost:3000/api/carros/upload/${params}`,
+          `http://${this.enderecoIp}:3000/api/carros/upload/${params}`,
           {
             method: "POST",
             body: formData,

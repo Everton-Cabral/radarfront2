@@ -93,7 +93,7 @@ export default defineComponent({
       km: "",
       dataentrada: "",
       obs: "",
-      servidor: "localhost",
+      servidor: "18.229.142.48",
     };
   },
   methods: {

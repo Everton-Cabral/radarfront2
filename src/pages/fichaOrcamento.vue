@@ -29,7 +29,18 @@
         </q-card>
       </q-dialog>
     </div>
+    
     <div class="car-info-container-left">
+      <div class="car-info">
+        <div class="info-label">Placa:</div>
+        <div class="info-value">{{ fichaHistorico.placa }}</div>
+      </div>
+
+      <div class="car-info">
+        <div class="info-label">Cliente:</div>
+        <div class="info-value">{{ fichaHistorico.cliente }}</div>
+      </div>
+
       <div class="car-info">
         <div class="info-label">Entrada:</div>
         <div class="info-value">
@@ -43,10 +54,7 @@
           {{ formatarData(fichaHistorico.datasaida) }}
         </div>
       </div>
-      <div class="car-info">
-        <div class="info-label">Placa:</div>
-        <div class="info-value">{{ fichaHistorico.placa }}</div>
-      </div>
+    
 
       <div class="car-info">
         <div class="info-label">Modelo:</div>
@@ -63,10 +71,7 @@
         <div class="info-value">{{ fichaHistorico.situacao }}</div>
       </div>
 
-      <div class="car-info">
-        <div class="info-label">Cliente:</div>
-        <div class="info-value">{{ fichaHistorico.cliente }}</div>
-      </div>
+      
 
       <div class="car-info">
         <div class="info-label">Órgão:</div>
