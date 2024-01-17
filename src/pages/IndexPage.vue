@@ -198,9 +198,23 @@ export default defineComponent({
   computed: {
     ...mapState(["carros"]),
     carroFiltrado() {
-      return this.carros.filter((carro) =>
-        carro.placa.includes(this.placaFiltro)
-      );
+      if (this.placaFiltro) {
+        return this.carros.filter((carro) =>
+          carro.placa.includes(this.placaFiltro)
+        );
+      } else if (this.modeloFiltro) {
+        return this.carros.filter((carro) =>
+          carro.modelo.includes(this.modeloFiltro)
+        );
+      } else if (this.clienteFiltro) {
+        return this.carros.filter((carro) =>
+          carro.cliente.includes(this.clienteFiltro)
+        );
+      } else if (this.situacaoFiltro) {
+        return this.carros.filter((carro) =>
+          carro.situacao.includes(this.situacaoFiltro)
+        );
+      } else return this.carros;
     },
   },
   methods: {
@@ -287,15 +301,27 @@ export default defineComponent({
   watch: {
     placaFiltro(newText) {
       this.placaFiltro = newText.toUpperCase();
+      this.modeloFiltro = "";
+      this.clienteFiltro = "";
+      this.situacaoFiltro = "";
     },
     modeloFiltro(newText) {
       this.modeloFiltro = newText.toUpperCase();
+      this.placaFiltro = "";
+      this.clienteFiltro = "";
+      this.situacaoFiltro = "";
     },
     clienteFiltro(newText) {
       this.clienteFiltro = newText.toUpperCase();
+      this.placaFiltro = "";
+      this.situacaoFiltro = "";
+      this.modeloFiltro = "";
     },
     situacaoFiltro(newText) {
       this.situacaoFiltro = newText.toUpperCase();
+      this.modeloFiltro = "";
+      this.clienteFiltro = "";
+      this.placaFiltro = "";
     },
   },
   mounted() {
