@@ -21,6 +21,10 @@ const routes = [
         path: "fichaorcamento",
         component: () => import("pages/fichaOrcamento.vue"),
       },
+      {
+        path: "graficos",
+        component: () => import("pages/appGraficos.vue"),
+      },
     ],
   },
 

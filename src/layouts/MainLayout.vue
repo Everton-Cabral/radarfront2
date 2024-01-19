@@ -71,6 +71,13 @@ const linksList = [
     icon: "sync_alt",
     route: "historico",
   },
+  {
+    title: "Estatística",
+    caption: "Gráfico Estatistico",
+    icon: "bar_chart",
+    route: "graficos",
+  },
+
 ];
 
 export default defineComponent({

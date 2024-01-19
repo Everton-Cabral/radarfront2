@@ -9,7 +9,7 @@ export default store(function () {
       carros: [],
       idCarroEdit: "",
       idCarroDetalhe: "",
-      carrosHistorico: "",
+      carrosHistorico: [],
       fichaHistorico: "",
       carrosOrcamento: "",
     },
@@ -140,9 +140,10 @@ export default store(function () {
             console.error("Erro ao realizar a requisição PUT:", error);
           });
       },
+    
     },
     getters: {
-      // Seus getters aqui
+      
     },
   });
 });
